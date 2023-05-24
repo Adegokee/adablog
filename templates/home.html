@@ -1,0 +1,26 @@
+
+
+
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<div>
+
+    <div>
+     <div>
+      <a href="{% url 'createRoom' %}">+Create Room</a>
+     </div>
+       
+       {% for x  in rooms  %}
+       <a href="">@{{x.host}}</a>
+       <h4>{{x.id}}----<a href="{% url 'room' x.id %}">{{x.name}}</a></h4>
+       <p> comment made {{x.created_date|timesince}} ago</p>
+       <hr>
+       {% endfor %}
+           
+      
+    </div>   
+   </div>
+{% endblock content %}
