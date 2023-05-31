@@ -8,18 +8,13 @@
  <style>
     .home-container{
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 3fr 1fr;
     }
  </style>
 <div class="home-container">
 
     <div>
-        <h3>Browse Topic</h3>
-        <a href="{% url 'home' %}">All</a>
-            
-            {% for topic in topics  %}
-               <h3><a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a></h3> 
-            {% endfor %}
+        {% include 'tunde/topics_component.html' %}
                 
 
 
@@ -35,19 +30,21 @@
           <a href="{% url 'createRoom' %}">+Create Room</a>
          </div>
            
-           {% for x  in rooms  %}
-           <div>
-             <a href="{% url 'editRoom' x.id %}">Edit</a>
-             <a href="{% url 'deleteRoom' x.id %}">Delete</a>
-           </div>
-           <a href="">@{{x.host}}</a>
-           <h4>{{x.id}}----<a href="{% url 'room' x.id %}">{{x.name}}</a></h4>
-           <p> comment made {{x.created_date|timesince}} ago</p>
-           <hr>
-           {% endfor %}
+          {% include 'tunde/feeds_components.html' %}
                
           
         </div>   
+       </div>
+
+       <div>
+        <h3>Recent Activities</h3>
+        <hr>
+        
+       {% include 'tunde/activity_component.html' %}
+          
+        <div>
+
+        </div>
        </div>
 </div>
 {% endblock content %}

@@ -1,0 +1,12 @@
+{% for x  in rooms  %}
+<div>
+ {% if request.user == x.host %}
+  <a href="{% url 'editRoom' x.id %}">Edit</a>
+  <a href="{% url 'deleteRoom' x.id %}">Delete</a>
+  {% endif %}
+</div>
+<a href="{% url 'profile' x.host.id %}">@{{x.host}}</a>
+<h4>{{x.id}}----<a href="{% url 'room' x.id %}">{{x.name}}</a></h4>
+<p> comment made {{x.created_date|timesince}} ago</p>
+<hr>
+{% endfor %}

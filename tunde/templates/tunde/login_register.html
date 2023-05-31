@@ -2,6 +2,7 @@
 
 
 {% block content %}
+{% if page %}
 <div>
     <form action="" method="POST">
         {% csrf_token %}
@@ -21,6 +22,7 @@
     <a href="{% url 'register' %}">Register</a>
 </div>
 
+{% else %}
 
 
 
@@ -36,6 +38,8 @@
     <p>Already registered ?</p>
     <a href="{% url 'login' %}">Login</a>
 </div>
+
+{% endif %}
 
 
 {% endblock content %}
