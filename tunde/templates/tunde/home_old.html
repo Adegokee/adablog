@@ -1,0 +1,50 @@
+
+
+
+{% extends 'main.html' %}
+
+
+{% block content %}
+ <style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+ </style>
+<div class="home-container">
+
+    <div>
+        {% include 'tunde/topics_component.html' %}
+                
+
+
+    </div>
+
+
+
+
+    <div>
+
+        <div>
+         <div>
+          <a href="{% url 'createRoom' %}">+Create Room</a>
+         </div>
+           
+          {% include 'tunde/feeds_components.html' %}
+               
+          
+        </div>   
+       </div>
+
+       <div>
+        <h3>Recent Activities</h3>
+        <hr>
+        
+       {% include 'tunde/activity_component.html' %}
+          
+        <div>
+
+        </div>
+       </div>
+</div>
+{% endblock content %}
