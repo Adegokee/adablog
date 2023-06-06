@@ -1,28 +1,47 @@
 {% extends 'main.html' %}
+ {% block content %}
+ <main class="profile-page layout layout--3">
+  <div class="container">
+    <!-- Topics Start -->
+    {% include 'tunde/topics_component.html' %}
+    <!-- Topics End -->
 
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="profile">
+        <div class="profile__avatar">
+          <div class="avatar avatar--large active">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" />
+          </div>
+        </div>
+        <div class="profile__info">
+          <h3>{{user.username}}</h3>
+          <p>@{{user.username}}</p>
+          <a href="edit-user.html" class="btn btn--main btn--pill">Edit Profile</a>
+        </div>
+        <div class="profile__about">
+          <h3>About</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
+            facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
+            accusamus repudiandae quis ab ex exercitationem rem?
+          </p>
+        </div>
+      </div>
 
-
-{% block content %}
-<style>
-.profile{
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-}
-</style>
-<h5>@{{user.username|capfirst}}</h5>
-<div  class="profile">
-    
-    <div>
-        {% include 'tunde/topics_component.html'  %}
+      <div class="roomList__header">
+        <div>
+          <h2>Study Rooms Hosted by {{user.username|capfirst}}</a>
+          </h2>
+        </div>
+      </div>
+      {% include 'tunde/feeds_components.html' %}
     </div>
+    <!-- Room List End -->
 
-    <div>
-        {% include 'tunde/feeds_components.html' %}
-    </div>
-
-    <div>
-        {% include 'tunde/activity_component.html' %}
-    </div>
-</div>
-
-{% endblock content %}
+    <!-- Activities Start -->
+    {% include 'tunde/activity_component.html' %}
+    <!-- Activities End -->
+  </div>
+</main>
+ {% endblock content %}
