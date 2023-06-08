@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -50,7 +50,7 @@ def home(request):
     rooms=Room.objects.filter(Q(topic__name__icontains=q)|
                               Q(name__icontains=q)|
                               Q(description__icontains=q))
-    topics=Topic.objects.all()
+    topics=Topic.objects.all()[0:5]
     room_count=rooms.count()
     room_messages=Message.objects.filter(Q(room__topic__name__icontains=q))
     
@@ -178,3 +178,27 @@ def userProfile(request, pk):
     topics=Topic.objects.all()
     context={'user': user, 'rooms': rooms, 'topics': topics, 'room_messages': room_messages}
     return render(request, 'tunde/profile.html', context)
+
+
+
+def updateUser(request):
+    user=request.user
+    form = UserForm(instance=request.user)
+    if request.method == 'POST':
+        form=UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk=user.id)
+    context={'form': form}
+    return render(request, 'tunde/update-user.html', context)
+
+
+def topicPage(request):
+    q= request.GET.get('q') if request.GET.get('q') else ''
+    topics=Topic.objects.filter(name__icontains=q)
+    context={'topics': topics}
+    return render(request, 'tunde/topics.html', context)
+def activityPage(request):
+    room_messages = Message.objects.all()
+    context={'room_messages': room_messages}
+    return render(request, 'tunde/activity.html', context)
